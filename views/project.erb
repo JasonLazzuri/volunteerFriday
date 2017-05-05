@@ -1,0 +1,37 @@
+<h1><%= @projects.description() %></h1>
+
+<% if @projects.volunteers().any?() %>
+  <h3>Here are all the volunteers working on this Project:</h3>
+
+  <ul>
+    <% @projects.volunteers().each() do |volunteer| %>
+      <li><%= volunteer.name() %> </li>
+    <% end %>
+  </ul>
+
+  <% else %>
+    <p>There are no volunteers on this Project!</p>
+<% end %>
+
+<h3>Add a Volunteer to <%= @projects.description() %> </h3>
+
+<form action="/volunteers" method="post">
+  <input id="project_id" name="project_id" type="hidden" value="<%= @projects.id() %>">
+
+  <label for="name">Name of the Volunteer:</label>
+  <input id="name" name="name" type="text">
+
+  <button type="submit">Add Volunteer</button>
+</form>
+
+<hr>
+
+<div class="container">
+  <a href="/">Home</a>
+  <a href="/projects">View All Projects</a>
+  <a href="/projects/new">Add New Project</a>
+</div>
+
+<div class="container">
+  <a href="/"><button class="btn">Home</a>
+</div>
