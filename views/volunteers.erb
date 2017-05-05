@@ -1,0 +1,16 @@
+<h1>Your Current Volunteers</h1>
+
+<% if @volunteers.any?() %>
+  <h3>Here are your lists:</h3>
+
+  <ul>
+    <% @volunteers.each() do |volunteer| %>
+      <li><%= volunteer.name() %></a> </li>
+    <% end %>
+  </ul>
+
+<% else %>
+
+    <p>There are no tasks yet!</p>
+
+<% end %>

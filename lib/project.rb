@@ -42,9 +42,15 @@ class Project
     volunteers.each() do |volunteer|
       name = volunteer.fetch("name")
       project_id = volunteer.fetch("project_id").to_i()
-      project_volunteers.push(Volunteer.new({:name => name, :project_id => project_id}))
+      project_volunteers.push(Volunteer.new({:name => name, :project_id => project_id, :id => id}))
     end
     project_volunteers
+  end
+
+  define_method(:update) do |attributes|
+    @description = attributes.fetch(:description, @description)
+    @id = self.id()
+    DB.exec ("UPDATE projects SET description = '#{@description}' WHERE id = #{@id};")
   end
 
   define_method(:delete) do
