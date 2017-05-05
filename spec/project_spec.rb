@@ -61,6 +61,14 @@ describe(Project) do
       project.delete()
       expect(Project.all()).to(eq([project2]))
     end
+    it('lets you delete a projects volunteer from the database')do
+      project = Project.new({:description =>"build a building", :id => nil})
+      project.save()
+      volunteer = Volunteer.new({:name => "bob", :project_id => project.id()})
+      volunteer.save()
+      project.delete()
+      expect(Volunteer.all()).to(eq([]))
+    end
   end
 
 end
