@@ -19,6 +19,7 @@ class Volunteer
 
   define_method(:save) do
     DB.exec("INSERT INTO volunteers (name, project_id) VALUES ('#{@name}', #{@project_id});")
+
   end
 
   define_method(:==) do |another_volunteer|

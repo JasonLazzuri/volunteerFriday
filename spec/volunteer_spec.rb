@@ -1,4 +1,5 @@
 require('spec_helper')
+require('pry')
 
 describe(Volunteer) do
   describe('.all')do
@@ -37,5 +38,14 @@ describe(Volunteer) do
     end
   end
 
-
+  describe('#delete')do
+  it ('lets you delete a project from the list')do
+    project = Project.new({:description => "Build a building", :id =>nil})
+    project.save()
+    project2 = Project.new({:description => "buy a house", :id => nil})
+    project2.save()
+    project.delete()
+    expect(Project.all()).to(eq([project2]))
+  end
+end
 end
