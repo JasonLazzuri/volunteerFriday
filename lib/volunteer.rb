@@ -1,10 +1,10 @@
 class Volunteer
-  attr_reader(:name, :project_id, :id)
+  attr_reader(:id, :name, :project_id)
 
   define_method(:initialize) do |attributes|
+    @id = attributes.fetch(:id)
     @name = attributes.fetch(:name)
     @project_id = attributes.fetch(:project_id)
-    @id = attributes.fetch(:id)
   end
 
   define_singleton_method(:all) do
@@ -20,8 +20,8 @@ class Volunteer
   end
 
   define_method(:save) do
-  results = DB.exec("INSERT INTO volunteers (name, project_id) VALUES ('#{@name}', #{@project_id}) RETURNING id;")
-    @id = results.first().fetch("id").to_i()
+  result = DB.exec("INSERT INTO volunteers (name, project_id) VALUES ('#{@name}', #{@project_id}) RETURNING id;")
+  @id = result.first().fetch("id").to_i()
   end
 
   define_singleton_method(:find) do |id|
@@ -34,6 +34,9 @@ class Volunteer
     found_volunteer
   end
 
+  define_method(:delete)do
+    DB.exec("DELETE FROM volunteers WHERE id = #{@id};")
+  end
 
   define_method(:==) do |another_volunteer|
     self.name().==(another_volunteer.name()).&(self.project_id().==(another_volunteer.project_id()))

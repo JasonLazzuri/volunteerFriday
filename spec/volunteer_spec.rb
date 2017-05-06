@@ -49,9 +49,9 @@ describe(Volunteer) do
 
   describe('#find')do
     it('lets you find the id of a volunteer')do
-      volunteer_test = Volunteer.new({:name => "Jason", :project_id => 1, :id => nil})
+      volunteer_test = Volunteer.new({:name => "Jason", :project_id => 1, :id => 1})
       volunteer_test.save()
-      volunteer2 = Volunteer.new({:name => "Bill", :project_id => 1, :id => nil})
+      volunteer2 = Volunteer.new({:name => "Bill", :project_id => 1, :id => 2})
       volunteer2.save()
       expect(Volunteer.find(volunteer_test.id())).to(eq(volunteer_test))
     end

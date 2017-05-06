@@ -9,6 +9,7 @@ require('pry')
 DB = PG.connect({:dbname =>"volunteer_tracker"})
 
 get('/')do
+@projects = Project.all()
   erb(:index)
 end
 
@@ -19,6 +20,11 @@ end
 
 get('/projects/new')do
   erb(:project_form)
+end
+
+get('/volunteers')do
+  @volunteers = Volunteer.all()
+  erb(:volunteers)
 end
 
 post('/projects')do
@@ -34,17 +40,11 @@ get('/projects/:id') do
   erb(:project)
 end
 
-get('/volunteers')do
-  @volunteers = Volunteer.all()
-  erb(:volunteers)
-end
-
 post('/volunteers') do
-  id = params.fetch("id").to_i()
   name = params.fetch("name")
   project_id = params.fetch("project_id").to_i()
-  volunteer = Volunteer.new({:id => id, :name => name, :project_id => project_id}).save()
-  @volunteers = Volunteer.all()
+  volunteer = Volunteer.new({:id => nil, :name => name, :project_id => project_id}).save()
+  @volunteers = volunteer
   @projects = Project.find(project_id)
   erb(:volunteer_success)
 end
