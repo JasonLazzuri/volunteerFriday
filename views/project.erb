@@ -5,7 +5,7 @@
 
   <ul>
     <% @projects.volunteers().each() do |volunteer| %>
-      <li><a href="/volunteer/<%= volunteer.id() %>"><%= volunteer.name() %></a></li>
+      <li><a href="/volunteer/<%= volunteer.id() %>/edit"><%= volunteer.name() %></a></li>
     <% end %>
   </ul>
 
@@ -30,6 +30,7 @@
   <a href="/">Home</a><br>
   <a href="/projects/<%= @projects.id() %>/edit">Edit Projects Description</a> <br>
   <a href="/projects">View All Projects</a><br>
+
   <a href="/projects/new">Add New Project</a>
 </div>
 
