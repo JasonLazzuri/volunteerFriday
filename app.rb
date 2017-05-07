@@ -8,8 +8,9 @@ require('pry')
 
 DB = PG.connect({:dbname =>"volunteer_tracker"})
 
+
+#index links page starts
 get('/')do
-@projects = Project.all()
   erb(:index)
 end
 
@@ -27,6 +28,12 @@ get('/volunteers')do
   erb(:volunteers)
 end
 
+##index page links end
+
+
+## projects pages
+
+#adds a project to the list
 post('/projects')do
   description = params.fetch('description')
   project = Project.new({:description => description, :id => nil})
@@ -34,30 +41,54 @@ post('/projects')do
   erb(:project_success)
 end
 
+#gets to the individual projects page and lists all the volunteers
 get('/projects/:id') do
   @projects = Project.find(params.fetch('id').to_i())
-  @volunteers = Volunteer.all()
   erb(:project)
 end
 
+#submits a new volunteer to the project
 post('/volunteers') do
   name = params.fetch("name")
   project_id = params.fetch("project_id").to_i()
-  volunteer = Volunteer.new({:id => nil, :name => name, :project_id => project_id}).save()
-  @volunteers = volunteer
+  @volunteers = Volunteer.new({:id => nil, :name => name, :project_id => project_id}).save()
   @projects = Project.find(project_id)
   erb(:volunteer_success)
 end
 
+#edit projects form
 get('/projects/:id/edit') do
   @projects = Project.find(params.fetch("id").to_i())
   erb(:project_edit)
 end
 
-get("/volunteers/:id") do
-  volunteer = Volunteer.find(params.fetch("id").to_i())
-  @volunteer = volunteer
-  erb(:volunteer)
+#updates the projects name from the form
+patch('/projects/:id') do
+  description = params.fetch("description")
+  @projects = Project.find(params.fetch("id").to_i())
+  @projects.update({:description => description})
+  erb(:project)
+end
+
+#deletes projects
+delete('/projects/:id') do
+  @project = Project.find(params.fetch("id").to_i())
+  @project.delete()
+  @projects = Project.all()
+  erb(:index)
+end
+
+## ends projects pages
+
+
+
+
+
+
+
+
+get("/volunteer/:id") do
+  erb(:single_volunteer)
 end
 
 get('/volunteers/:id/edit') do
@@ -65,19 +96,9 @@ get('/volunteers/:id/edit') do
   erb(:volunteer_edit)
 end
 
-
-patch('/projects/:id') do
-  description = params.fetch("description")
-  @projects = Project.find(params.fetch("id").to_i())
-  @projects.update({:description => description})
-  @volunteers = Volunteer.all()
-  @volunteer = Volunteer.find(params.fetch('id').to_i())
-  erb(:project)
-end
-
-delete('/projects/:id') do
-  @project = Project.find(params.fetch("id").to_i())
-  @project.delete()
-  @projects = Project.all()
-  erb(:index)
+patch('/volunteers/:id') do
+  name = params.fetch("name")
+  @volunteers = Volunteer.find(params.fetch("id").to_i())
+  @volunteers.update({:name => name})
+  erb(:volunteers)
 end
