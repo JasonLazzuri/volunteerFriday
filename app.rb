@@ -60,10 +60,6 @@ end
 
 
 
-
-
-
-
 #edit projects form
 get('/projects/:id/edit') do
   @projects = Project.find(params.fetch("id").to_i())
