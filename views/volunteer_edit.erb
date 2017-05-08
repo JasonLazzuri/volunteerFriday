@@ -1,6 +1,6 @@
-<h1>Update the <%=@volunteers.name() %> name </h1>
+<h1>Update the <%=@volunteers %> name </h1>
 
-<form action="/volunteer/<%= @volunteers.id() %>/edit" method="post">
+<form action="/volunteer/<%= @volunteers %>/edit" method="post">
   <input name="_method" type="hidden" value="patch">
 
   <label for="name">Rename The Volunteer:</label>
@@ -8,7 +8,7 @@
 
   <button type="submit">Update</button>
 </form>
-<form action="/volunteer/<%= @volunteers.id() %>" method="post">
+<form action="/volunteer/<%= @volunteers %>" method="post">
   <input name="_method" type="hidden" value="delete">
 
   <button type="submit">Delete Volunteer</button>

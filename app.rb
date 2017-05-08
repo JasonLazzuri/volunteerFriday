@@ -36,7 +36,7 @@ end
 
 ## projects pages
 
-#adds a project to the list
+#creates a project to the list
 post('/projects')do
   description = params.fetch('description')
   project = Project.new({:description => description, :id => nil}).save()
@@ -57,8 +57,6 @@ post('/volunteers') do
   @projects = Project.find(project_id)
   erb(:volunteer_success)
 end
-
-
 
 #edit projects form
 get('/projects/:id/edit') do
