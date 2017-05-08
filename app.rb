@@ -84,17 +84,21 @@ end
 
 
 
-
-
-
-get('/volunteer/:id/edit') do
+get('/volunteers/:id/edit') do
   @volunteers = Volunteer.find(params.fetch("id").to_i())
   erb(:volunteer_edit)
 end
 
 patch('/volunteers/:id') do
   name = params.fetch("name")
-  @volunteers = Volunteer.find(params.fetch("id").to_i())
-  @volunteers.update({:name => name})
-  erb(:volunteers)
+  @volunteer = Volunteer.find(params.fetch("id").to_i())
+  @volunteer.update({:name => name})
+  erb(:volunteer_success)
+end
+
+delete('/volunteers/:id') do
+  @volunteer = Volunteer.find(params.fetch("id").to_i())
+  @volunteer.delete()
+  @volunteer = Volunteer.all()
+  erb(:index)
 end
