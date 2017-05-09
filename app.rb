@@ -39,12 +39,14 @@ end
 #creates a project to the list
 post('/projects')do
   description = params.fetch('description')
-  project = Project.new({:description => description, :id => nil}).save()
+  Project.new({:description => description, :id => nil}).save()
   erb(:project_success)
 end
 
 #gets to the individual projects page and lists all the volunteers
 get('/projects/:id') do
+  @volunteer = Volunteer.find(params.fetch('id').to_i())
+  @volunteers = Volunteer.all()
   @projects = Project.find(params.fetch('id').to_i())
   erb(:project)
 end
@@ -85,7 +87,7 @@ end
 
 
 get('/volunteers/:id/edit') do
-  @volunteers = Volunteer.find(params.fetch("id").to_i())
+  @volunteer = Volunteer.find(params.fetch("id").to_i())
   erb(:volunteer_edit)
 end
 

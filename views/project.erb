@@ -4,11 +4,10 @@
   <h3>Here are all the volunteers working on this Project:</h3>
 
   <ul>
-    <% @projects.volunteers().each() do |volunteer| %>
+    <% @volunteers.each() do |volunteer| %>
       <li><a href="/volunteers/<%= volunteer.id() %>/edit"><%= volunteer.name() %></a></li>
     <% end %>
   </ul>
-
   <% else %>
     <p>There are no volunteers on this Project!</p>
 <% end %>
