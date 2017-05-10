@@ -4,7 +4,7 @@
   <h3>Here are all the volunteers working on this Project:</h3>
 
   <ul>
-    <% @volunteers.each() do |volunteer| %>
+    <% @projects.volunteers.each() do |volunteer| %>
       <li><a href="/volunteers/<%= volunteer.id() %>/edit"><%= volunteer.name() %></a></li>
     <% end %>
   </ul>
