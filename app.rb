@@ -86,15 +86,15 @@ end
 
 
 
-get('/volunteers/:id/edit') do
+get('/volunteers/:id/edit/:name') do
+  id = params.fetch('id')
   @volunteer = Volunteer.find(params.fetch("id").to_i())
   erb(:volunteer_edit)
 end
 
-patch('/volunteers/:id') do
-  id = params.fetch("id")
+patch('/volunteers/:id/edit/:name') do
   name = params.fetch('name')
-  @volunteer = Volunteer.find(id)
+  @volunteer = Volunteer.find(params.fetch("id").to_i())
   @volunteer.update({:name => name})
   erb(:volunteer_success)
 end
