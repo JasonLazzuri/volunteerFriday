@@ -28,13 +28,20 @@ get('/volunteers')do
   erb(:volunteers)
 end
 
-##index page links end
+
+get ('/volunteers/:id/edit') do
+  @volunteers = Volunteer.find(params.fetch('id').to_i())
+  erb(:volunteer_edit)
+end
+
+patch('/volunteers/:id') do
+  name = params.fetch('name')
+  @volunteer = Volunteer.find(params.fetch("id").to_i())
+  @volunteer.update({:name => name})
+  erb(:volunteer_success)
+end
 
 
-
-
-
-## projects pages
 
 #creates a project to the list
 post('/projects')do
@@ -92,12 +99,6 @@ get('/volunteers/:id/edit/:name') do
   erb(:volunteer_edit)
 end
 
-patch('/volunteers/:id/edit/:name') do
-  name = params.fetch('name')
-  @volunteer = Volunteer.find(params.fetch("id").to_i())
-  @volunteer.update({:name => name})
-  erb(:volunteer_success)
-end
 
 delete('/volunteers/:id') do
   @volunteer = Volunteer.find(params.fetch("id").to_i())
